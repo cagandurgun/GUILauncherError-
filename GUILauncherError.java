@@ -2,8 +2,6 @@
  * This code was written by Çağan Durgun.
  */
 
-package error;
-
 import javax.swing.*;
 
 /**
