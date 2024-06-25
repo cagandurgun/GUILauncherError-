@@ -1,77 +1,78 @@
 /*
- * Bu kod Çağan Durgun tarafından yazılmıştır.
+ * This code was written by Çağan Durgun.
  */
 
-package hata;
+package error;
 
 import javax.swing.*;
 
 /**
- * Bu sınıf, hatayı, PopUp olarak ekrana atar.
+ * This class throws an error as a PopUp on the screen.
  * <p>
- * Kullanılacağı projedeki <strong>main()</strong> metotun en
- * altında <strong>{@link GKAileHata#GKA_ÇIKIŞ()}</strong>
- * metotunun kullanılması <strong>şarttır!</strong> Kullanım
- * bilgileri, ilgili metotta açıklanmıştır.
+ * It is <strong>mandatory</strong> to use the
+ * <strong>{@link GUILauncherError#exitProtocol()}</strong>
+ * method at the end of the <strong>main()</strong> method in
+ * the project where it will be used! Usage information is
+ * explained in the relevant method.
  */
-public class GKAileHata extends Exception {
+public class GUILauncherError extends Exception {
 
     /**
-     * Hata mesajı oluşturmak için constructor.
+     * Constructor to create an error message.
      */
-    public GKAileHata(String message) {
+    public GUILauncherError(String message) {
         super(message);
     }
 
     /**
-     * Çıkış protokolü için constructor.
+     * Constructor for the exit protocol.
      */
-    public GKAileHata() {
+    public GUILauncherError() {
         super("");
     }
 
     /**
-     * Kullanıldığı programın düzgün sonlanabilmesi için
-     * main metotun içerisinde  bu metot kullanılmalıdır.
-     * <p><strong>Kullanımı:</strong>
+     * This method must be used within the main method of the
+     * program for it to terminate properly.
+     * <p><strong>Usage:</strong>
      * <pre>{@code
      *      public class Main {
      *          public static void main(String[] args) {
      *
-     *              new GKAileHata().GKA_ÇIKIŞ();
+     *              new GUILauncherError().exitProtocol();
      *          }
      *      }
      * }</pre>
      * <p>
-     * şeklindedir.
+     * as shown.
      */
-    public void GKA_ÇIKIŞ() {
+    public void exitProtocol() {
         System.exit(0);
     }
 
     /**
-     * Kullanıcı hatayı görmek isterse.
+     * If the user wants to see the error.
      */
     @Override
     public void printStackTrace() {
-        new GKA(getMessage()).hataPopUp();
+        new GUI(getMessage()).errorPopUp();
     }
 
     /**
-     * Görsel Kullanıcı Arayüzü (GKA)
+     * Graphical User Interface (GUI)
      */
-    private static class GKA extends JFrame {
-        private final String mesaj;
+    private static class GUI extends JFrame {
+        private final String message;
 
-        public GKA(String mesaj) {
-            this.mesaj = mesaj;
+        public GUI(String message) {
+            this.message = message;
         }
 
-        private void hataPopUp() {
-            if (mesaj.isEmpty()) {
-                JOptionPane.showMessageDialog(this, mesaj, "Hata Mesajı Yok!", JOptionPane.INFORMATION_MESSAGE);
+        private void errorPopUp() {
+            if (message.isEmpty()) {
+                JOptionPane.showMessageDialog(this, message, "No Error Message!", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, mesaj, "GKA Hata!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, message, "GUI Error!", JOptionPane.INFORMATION_MESSAGE);
             }
 
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
